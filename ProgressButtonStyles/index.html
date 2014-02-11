@@ -1,13 +1,13 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class=" js csstransforms3d csstransitions csstransformspreserve3d" style="">
 <head>
   <meta charset="utf-8">
   <title>Progress Button Styles Experiments and Choices</title>
   <meta name="description" content="Progress Button Styles Experiments and Choices">
   <meta name="author" content="JoaquinDev">
 
-  <link rel="stylesheet" href="components.css">
-
+  <link rel="stylesheet" href="assets/css/components.css">
+  <script src="assets/js/modernizr.custom.js"></script>
   <!--[if lt IE 9]/>
   <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
@@ -17,26 +17,31 @@ Testing Progress Button Styles for selecting one. Source: <a href="http://tympan
 <h2>Rotate-side-left</h2>
 <br>Perspective
 
-<button class="progress-button" data-style="rotate-side-left" data-perspective="" data-vertical="">
- <span class="progress-wrap">
-    <span class="content">Submit</span>
-    <span class="progress">
-        <span class="progress-inner notransition" style="height: 0%; opacity: 1;"></span>
-    </span>
- </span>
-</button>
+<section>
+<h2>shrink vertical</h2>
+<button class="progress-button" data-style="shrink" data-vertical=""><span class="content">Submit</span><span class="progress"><span class="progress-inner"></span></span></button>
+</section>
 
+<script src="assets/js/classie.js"></script>
+<script src="assets/js/progressButton.js"></script>
+<script>
+[].slice.call( document.querySelectorAll( 'button.progress-button' ) ).forEach( function( bttn ) {
+                new ProgressButton( bttn, {
+                    callback : function( instance ) {
+                        var progress = 0,
+                            interval = setInterval( function() {
+                                progress = Math.min( progress + Math.random() * 0.1, 1 );
+                                instance._setProgress( progress );
 
+                                if( progress === 1 ) {
+                                    instance._stop(1);
+                                    clearInterval( interval );
+                                }
+                            }, 200 );
+                    }
+                } );
+            } );
 
-
-
-
-
-
-
-
-
-
-</button>
+</script>
 </body>
 </html>
